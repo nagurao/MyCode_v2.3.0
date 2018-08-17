@@ -11,7 +11,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #define MY_NODE_ID 254
 
@@ -43,7 +45,7 @@
 // will make the sketch too large for a pro mini's memory so it's probably best to try
 // one at a time.
 
-#define ID_S_ARMED             0  // dummy to controll armed stated for several sensors
+#define ID_S_ARMED             0  // dummy to control armed stated for several sensors
 #define ID_S_DOOR              1
 //#define ID_S_MOTION            2
 //#define ID_S_SMOKE             3
@@ -84,12 +86,12 @@
 
 
 // Global Vars
-unsigned long SLEEP_TIME = 900000; // Sleep time between reads (in milliseconds)
+uint32_t SLEEP_TIME = 900000; // Sleep time between reads (in milliseconds)
 bool metric = true;
 long randNumber;
 
 
-//Instanciate Messages objects
+//Instantiate Messages objects
 
 #ifdef ID_S_ARMED
 bool isArmed;
@@ -719,7 +721,7 @@ void loop()
 }
 
 // This is called when a new time value was received
-void receiveTime(unsigned long controllerTime)
+void receiveTime(uint32_t controllerTime)
 {
 
 	Serial.print("Time value received: ");
@@ -855,7 +857,7 @@ void temp()
 void hum()
 {
 
-	Serial.print("Humitidty is: " );
+	Serial.print("Humidity is: " );
 	Serial.println(randNumber);
 
 	send(msg_S_HUM.set(randNumber));
@@ -871,7 +873,7 @@ void baro()
 	long pressure = map(randNumber,1,100,870,1086);// hPa?
 	int forecast = map(randNumber,1,100,0,5);
 
-	Serial.print("Atmosferic Pressure is: " );
+	Serial.print("Atmospheric Pressure is: " );
 	Serial.println(pressure);
 	send(msg_S_BARO_P.set(pressure));
 
@@ -905,7 +907,7 @@ void wind()
 void rain()
 {
 
-	Serial.print("Rain ammount  is: " );
+	Serial.print("Rain amount  is: " );
 	Serial.println(randNumber);
 
 	send(msg_S_RAIN_A.set(randNumber));
@@ -1486,7 +1488,7 @@ void receive(const MyMessage &message)
 #endif
 
 	default:
-		Serial.print("Unknown/UnImplemented message type: ");
+		Serial.print("Unknown/Unimplemented message type: ");
 		Serial.println(message.type);
 	}
 

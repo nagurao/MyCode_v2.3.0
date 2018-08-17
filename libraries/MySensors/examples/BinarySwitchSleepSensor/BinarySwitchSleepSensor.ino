@@ -23,7 +23,7 @@
  * Interrupt driven binary switch example with dual interrupts
  * Author: Patrick 'Anticimex' Fallberg
  * Connect one button or door/window reed switch between
- * digitial I/O pin 3 (BUTTON_PIN below) and GND and the other
+ * digital I/O pin 3 (BUTTON_PIN below) and GND and the other
  * one in similar fashion on digital I/O pin 2.
  * This example is designed to fit Arduino Nano/Pro Mini
  *
@@ -35,7 +35,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
@@ -70,12 +72,8 @@ MyMessage msg2(SECONDARY_CHILD_ID, V_TRIPPED);
 void setup()
 {
 	// Setup the buttons
-	pinMode(PRIMARY_BUTTON_PIN, INPUT);
-	pinMode(SECONDARY_BUTTON_PIN, INPUT);
-
-	// Activate internal pull-ups
-	digitalWrite(PRIMARY_BUTTON_PIN, HIGH);
-	digitalWrite(SECONDARY_BUTTON_PIN, HIGH);
+	pinMode(PRIMARY_BUTTON_PIN, INPUT_PULLUP);
+	pinMode(SECONDARY_BUTTON_PIN, INPUT_PULLUP);
 }
 
 void presentation()

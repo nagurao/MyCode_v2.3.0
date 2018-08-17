@@ -22,7 +22,7 @@
  * Version 1.0 - Henrik Ekblad
  *
  * DESCRIPTION
- * Example sketch showing how to create a node thay repeates messages
+ * Example sketch showing how to create a node that repeats messages
  * from nodes far from gateway back to gateway.
  * It is important that nodes that has enabled repeater mode calls
  * process() frequently. Repeaters should never sleep.
@@ -33,7 +33,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 // Enabled repeater feature for this node
 #define MY_REPEATER_FEATURE

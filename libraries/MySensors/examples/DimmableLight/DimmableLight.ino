@@ -34,7 +34,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
@@ -46,7 +48,7 @@
 #define LIGHT_OFF 0
 #define LIGHT_ON 1
 
-#define SN "Dimable Light"
+#define SN "Dimmable Light"
 #define SV "1.0"
 
 int16_t LastLightState=LIGHT_OFF;
@@ -68,7 +70,7 @@ void setup()
 		}
 	}
 
-	//Here you actualy switch on/off the light with the last known dim level
+	//Here you actually switch on/off the light with the last known dim level
 	SetCurrentState2Hardware();
 
 	Serial.println( "Node ready to receive messages..." );

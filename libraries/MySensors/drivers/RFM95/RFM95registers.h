@@ -1,38 +1,35 @@
 /*
-* The MySensors Arduino library handles the wireless radio link and protocol
-* between your home built sensors/actuators and HA controller of choice.
-* The sensors forms a self healing radio network with optional repeaters. Each
-* repeater and gateway builds a routing tables in EEPROM which keeps track of the
-* network topology allowing messages to be routed to nodes.
-*
-* Created by Henrik Ekblad <henrik.ekblad@mysensors.org>
-* Copyright (C) 2013-2016 Sensnology AB
-* Full contributor list: https://github.com/mysensors/Arduino/graphs/contributors
-*
-* Documentation: http://www.mysensors.org
-* Support Forum: http://forum.mysensors.org
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* version 2 as published by the Free Software Foundation.
-*
-* Based on Mike McCauley's RFM95 library, Copyright (C) 2014 Mike McCauley <mikem@airspayce.com>
-* Radiohead http://www.airspayce.com/mikem/arduino/RadioHead/index.html
-* RFM95 driver refactored and optimized for MySensors, Copyright (C) 2016 Olivier Mauti <olivier@mysensors.org>
-*
-* Changelog:
-* - ACK with sequenceNumber
-* - ATC control
-*
-* Definitions for HopeRF LoRa radios:
-* http://www.hoperf.com/upload/rf/RFM95_96_97_98W.pdf
-* http://www.hoperf.cn/upload/rfchip/RF96_97_98.pdf
-*
-*/
+ * The MySensors Arduino library handles the wireless radio link and protocol
+ * between your home built sensors/actuators and HA controller of choice.
+ * The sensors forms a self healing radio network with optional repeaters. Each
+ * repeater and gateway builds a routing tables in EEPROM which keeps track of the
+ * network topology allowing messages to be routed to nodes.
+ *
+ * Created by Henrik Ekblad <henrik.ekblad@mysensors.org>
+ * Copyright (C) 2013-2018 Sensnology AB
+ * Full contributor list: https://github.com/mysensors/Arduino/graphs/contributors
+ *
+ * Documentation: http://www.mysensors.org
+ * Support Forum: http://forum.mysensors.org
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * version 2 as published by the Free Software Foundation.
+ *
+ * Based on Mike McCauley's RFM95 library, Copyright (C) 2014 Mike McCauley <mikem@airspayce.com>
+ * Radiohead http://www.airspayce.com/mikem/arduino/RadioHead/index.html
+ *
+ * RFM95 driver refactored and optimized for MySensors, Copyright (C) 2017-2018 Olivier Mauti <olivier@mysensors.org>
+ *
+ * Definitions for HopeRF LoRa radios:
+ * http://www.hoperf.com/upload/rf/RFM95_96_97_98W.pdf
+ *
+ */
 
 // Register access
 #define RFM95_READ_REGISTER						(0x7Fu)	//!< reading register
 #define RFM95_WRITE_REGISTER					(0x80u)	//!< writing register
+#define RFM95_NOP								(0x00u)	//!< NOP
 
 // Registers, available in LoRa mode
 #define RFM95_REG_00_FIFO						0x00 //!< REG_00_FIFO
@@ -122,7 +119,7 @@
 #define RFM95_PA_RAMP_15US						0x0D //!< PA_RAMP_15US
 #define RFM95_PA_RAMP_12US						0x0E //!< PA_RAMP_12US
 #define RFM95_PA_RAMP_10US						0x0F //!< PA_RAMP_10US
-#define RFM95_LOW_PN_TX_PLL_OFF					0x10 //!<LOW_PN_TX_PLL_OFF
+#define RFM95_LOW_PN_TX_PLL_OFF					0x10 //!< LOW_PN_TX_PLL_OFF
 
 // RFM95_REG_0B_OCP 0x0b
 #define RFM95_OCP_TRIM							0x1f //!< OCP_TRIM
@@ -151,6 +148,7 @@
 #define RFM95_PAYLOAD_CRC_ERROR					0x20 //!< PAYLOAD_CRC_ERROR
 #define RFM95_RX_DONE							0x40 //!< RX_DONE
 #define RFM95_RX_TIMEOUT						0x80 //!< RX_TIMEOUT
+#define RFM95_CLEAR_IRQ							0xFF //<! Clear IRQ
 
 // RFM95_REG_18_MODEM_STAT 0x18
 #define RFM95_MODEM_STATUS_SIGNAL_DETECTED		0x01 //!< MODEM_STATUS_SIGNAL_DETECTED
@@ -198,6 +196,9 @@
 // RFM95_REG_26_MODEM_CONFIG3 0x26
 #define RFM95_LOW_DATA_RATE_OPTIMIZE			0x08 //!< LOW_DATA_RATE_OPTIMIZE
 #define RFM95_AGC_AUTO_ON						0x04 //!< AGC_AUTO_ON
+
+// RFM95_REG_4B_TCXO 0x4b
+#define RFM95_TCXO_TCXO_INPUT_ON				0x10 //!< TCXO_TCXO_INPUT_ON
 
 // RFM95_REG_4D_PA_DAC 0x4d
 #define RFM95_PA_DAC_DISABLE					0x04 //!< PA_DAC_DISABLE

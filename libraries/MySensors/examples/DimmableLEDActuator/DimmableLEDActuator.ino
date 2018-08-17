@@ -40,7 +40,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
@@ -60,7 +62,7 @@ MyMessage lightMsg(0, V_LIGHT);
  */
 void setup()
 {
-	// Pull the gateway's current dim level - restore light level upon sendor node power-up
+	// Pull the gateway's current dim level - restore light level upon node power-up
 	request( 0, V_DIMMER );
 }
 

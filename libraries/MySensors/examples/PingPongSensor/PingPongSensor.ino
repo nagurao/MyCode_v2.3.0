@@ -1,7 +1,7 @@
 /***
- *  This is a simple sketch used to demenstrate and test node-to-node MySensor's communication.
+ *  This is a simple sketch used to demonstrate and test node-to-node MySensors communication.
  *  To use this sketch, assemble MySensors nodes - they need nothing more than a radio
- *  1.  Flash each node with the same sketch, open the console and type either 0 or 1 to the respective nodes to set thei ID
+ *  1.  Flash each node with the same sketch, open the console and type either 0 or 1 to the respective nodes to set their ID
  *  2.  You only need to set the node id once, and restart the nodes
  *  3.  To being a ping-pong test, simply type T in the console for one of the nodes.
  *
@@ -13,7 +13,9 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 #include "MYSLog.h"
@@ -45,7 +47,7 @@ void loop()
 
 	// Interactive command and control
 	// Entering a number from 0 or 1 will write the node 200 (YING) or 201 (YANG) to EEPROM
-	// Entering T on either node will initiatve a ping-pong test.
+	// Entering T on either node will initiate a ping-pong test.
 	if (Serial.available()) {
 		byte inChar = Serial.read();
 		uint8_t node = getNodeId();

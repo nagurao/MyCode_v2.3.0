@@ -22,7 +22,7 @@
  * Version 1.0 - Henrik EKblad
  *
  * DESCRIPTION
- * Example sketch showing how to measue light level using a LM393 photo-resistor
+ * Example sketch showing how to measure light level using a LM393 photo-resistor
  * http://www.mysensors.org/build/light
  */
 
@@ -31,14 +31,16 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
 #define CHILD_ID_LIGHT 0
 #define LIGHT_SENSOR_ANALOG_PIN 0
 
-unsigned long SLEEP_TIME = 30000; // Sleep time between reads (in milliseconds)
+uint32_t SLEEP_TIME = 30000; // Sleep time between reads (in milliseconds)
 
 MyMessage msg(CHILD_ID_LIGHT, V_LIGHT_LEVEL);
 int lastLightLevel;

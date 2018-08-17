@@ -43,14 +43,16 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
 #define CHILD_ID_DUST 0
 #define DUST_SENSOR_ANALOG_PIN 1
 
-unsigned long SLEEP_TIME = 30*1000; // Sleep time between reads (in milliseconds)
+uint32_t SLEEP_TIME = 30*1000; // Sleep time between reads (in milliseconds)
 //VARIABLES
 int val = 0;           // variable to store the value coming from the sensor
 float valDUST =0.0;
@@ -81,7 +83,7 @@ void loop()
 	// recover voltage
 	calcVoltage = voMeasured * (5.0 / 1024.0);
 
-	// linear eqaution taken from http://www.howmuchsnow.com/arduino/airquality/
+	// linear equation taken from http://www.howmuchsnow.com/arduino/airquality/
 	// Chris Nafis (c) 2012
 	dustDensity = (0.17 * calcVoltage - 0.1)*1000;
 

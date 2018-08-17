@@ -1,4 +1,4 @@
-/*
+/**
  * The MySensors Arduino library handles the wireless radio link and protocol
  * between your home built sensors/actuators and HA controller of choice.
  * The sensors forms a self healing radio network with optional repeaters. Each
@@ -28,7 +28,7 @@
  *   Pad 6: PWM output ==> pin 6
  *
  *	From: http://davidegironi.blogspot.fr/2014/01/co2-meter-using-ndir-infrared-mh-z14.html
- * 	  MH-Z14 has a PWM output, with a sensitivity range of 0ppm to 2000ppm CO2, an accurancy of ±200ppm.
+ * 	  MH-Z14 has a PWM output, with a sensitivity range of 0ppm to 2000ppm CO2, an accuracy of ±200ppm.
  * 	  The cycle is 1004ms±5%, given the duty cicle Th (pulse high), Tl is 1004-Th, we can convert it to CO2 value using the formula:
  *	  CO2ppm = 2000 * (Th - 2ms) /(Th + Tl - 4ms)
  * 	From: http://airqualityegg.wikispaces.com/Sensor+Tests
@@ -43,14 +43,16 @@
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
+//#define MY_RADIO_NRF5_ESB
 //#define MY_RADIO_RFM69
+//#define MY_RADIO_RFM95
 
 #include <MySensors.h>
 
 #define CHILD_ID_AIQ 0
 #define AIQ_SENSOR_ANALOG_PIN 6
 
-unsigned long SLEEP_TIME = 30*1000; // Sleep time between reads (in milliseconds)
+uint32_t SLEEP_TIME = 30*1000; // Sleep time between reads (in milliseconds)
 
 float valAIQ =0.0;
 float lastAIQ =0.0;
@@ -76,12 +78,12 @@ void presentation()
 void loop()
 {
 
-	//unsigned long duration = pulseIn(AIQ_SENSOR_ANALOG_PIN, HIGH);
+	//uint32_t duration = pulseIn(AIQ_SENSOR_ANALOG_PIN, HIGH);
 	while(digitalRead(AIQ_SENSOR_ANALOG_PIN) == HIGH) {
 		;
 	}
 	//wait for the pin to go HIGH and measure HIGH time
-	unsigned long duration = pulseIn(AIQ_SENSOR_ANALOG_PIN, HIGH);
+	uint32_t duration = pulseIn(AIQ_SENSOR_ANALOG_PIN, HIGH);
 
 	//Serial.print(duration/1000); Serial.println(" ms ");
 	//from datasheet
@@ -93,7 +95,7 @@ void loop()
 	long co2ppm = 2 * ((duration/1000) - 2);
 	//Serial.print(co2ppm);
 	if ((co2ppm != lastAIQ)&&(abs(co2ppm-lastAIQ)>=10)) {
-		send(msg.set((long)ceil(co2ppm)));
+		send(msg.set((int32_t)ceil(co2ppm)));
 		lastAIQ = ceil(co2ppm);
 	}
 
