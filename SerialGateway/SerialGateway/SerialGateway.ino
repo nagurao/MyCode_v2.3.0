@@ -18,6 +18,7 @@
 
 #define APPLICATION_NAME "Serial Gateway"
 
+#include <MyNodes.h>
 #include <SPI.h>
 #include <MySensors.h>  
 
@@ -34,14 +35,4 @@ void presentation()
 void loop()
 {
 
-}
-
-char* getCodeVersion()
-{
-	static char codeVersion[20];
-	strcpy(codeVersion, "");
-	strcat(codeVersion, __DATE__);
-	strcat(codeVersion, " ");
-	strcat(codeVersion, __TIME__);
-	return codeVersion;
 }
