@@ -38,7 +38,7 @@ void loop()
 
 char* getCodeVersion()
 {
-	char codeVersion[20];
+	static char codeVersion[20];
 	strcpy(codeVersion, "");
 	strcat(codeVersion, __DATE__);
 	strcat(codeVersion, " ");
